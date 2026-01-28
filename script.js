@@ -7,6 +7,7 @@ const temp_min_container = document.querySelector(".temp_min");
 const temp_max_container = document.querySelector(".temp_max");
 const humidity_container = document.querySelector(".humidity");
 const input = document.querySelector("input");
+import getWeatherEmoji from "./WEATHER_EMOJIS.js";
 
 let search = "rosario";
 
@@ -23,7 +24,7 @@ async function getWeather() {
   try {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${search}&APPID=4e67d944032c2ffd3d235d00bd5140ca`,
-      { mode: "cors" }
+      { mode: "cors" },
     );
 
     const cityData = await response.json();
@@ -45,7 +46,8 @@ async function getWeather() {
 
     name_container.textContent = name.toLowerCase() + ",";
     country_container.textContent = country.toLowerCase();
-    description_container.textContent = description;
+    description_container.textContent =
+      description + " " + getWeatherEmoji(description);
     temp_container.textContent = temp + "ºC";
     feels_like_container.textContent = "feels like " + feelsLike + "ºC";
     temp_min_container.textContent = "temp min " + temp_min + "ºC";
